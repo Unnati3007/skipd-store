@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SKIPD™ — Fewer steps. Smarter skincare.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-cream: #FAF7F2;
+      --bg-surface: #FFFFFF;
+      --text-dark: #1E1A17;
+      --text-muted: #6E6760;
+      --accent-glow: #E07A5F;
+      --accent-glow-light: #FCEEE9;
+      --accent-night: #3D405B;
+      --border-color: #E8E2D9;
+      --chat-primary: #1E1A17;
+      --chat-bubble-user: #1E1A17;
+      --chat-bubble-bot: #F4EFE6;
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
+      --shadow-md: 0 8px 24px rgba(0,0,0,0.08);
+      --shadow-lg: 0 16px 40px rgba(0,0,0,0.12);
+      --radius: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-cream);
+      color: var(--text-dark);
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    /* Announcement Bar */
+    .top-banner {
+      background: var(--text-dark);
+      color: #FFF;
+      text-align: center;
+      padding: 8px 16px;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+    .top-banner span {
+      color: var(--accent-glow);
+      font-weight: 600;
+    }
+
+    /* Navigation */
+    nav {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .brand-logo {
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-dark);
+      text-decoration: none;
+    }
+    .brand-tag {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      background: var(--accent-glow-light);
+      color: var(--accent-glow);
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-weight: 700;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .nav-links a {
+      color: var(--text-dark);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover {
+      color: var(--accent-glow);
+    }
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .btn-waitlist {
+      background: var(--text-dark);
+      color: #FFF;
+      padding: 10px 20px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .btn-waitlist:hover {
+      background: var(--accent-glow);
+      transform: translateY(-1px);
+    }
+
+    /* Hero Section */
+    .hero {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 24px 40px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #FFFFFF;
+      border: 1px solid var(--border-color);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+    .hero-badge .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #10B981;
+    }
+    .hero h1 {
+      font-size: 46px;
+      line-height: 1.15;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 20px;
+    }
+    .hero h1 em {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      color: var(--accent-glow);
+      font-weight: 400;
+    }
+    .hero p {
+      font-size: 17px;
+      color: var(--text-muted);
+      margin-bottom: 32px;
+      line-height: 1.6;
+    }
+    .stats-row {
+      display: flex;
+      gap: 40px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border-color);
+    }
+    .stat-item h3 {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+    .stat-item p {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    /* Product Cards Display */
+    .hero-products {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .product-preview-card {
+      background: #FFFFFF;
+      border-radius: var(--radius);
+      padding: 24px;
+      border: 1px solid var(--border-color);
+      transition: all 0.3s;
+      position: relative;
+    }
+    .product-preview-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+    .product-stick-visual {
+      height: 180px;
+      background: linear-gradient(135deg, #F9EDE8 0%, #F5E5DF 100%);
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+    .product-stick-visual.night {
+      background: linear-gradient(135deg, #ECEEF5 0%, #DDE1EE 100%);
+    }
+    .stick-graphic {
+      width: 48px;
+      height: 110px;
+      background: #FFFFFF;
+      border-radius: 24px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+      border: 3px solid #EFEAE3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 800;
+      color: var(--accent-glow);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .stick-graphic.night {
+      color: var(--accent-night);
+      border-color: #DDE1EE;
+    }
+    .product-tag {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--accent-glow);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+    .product-tag.night {
+      color: var(--accent-night);
+    }
+    .product-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .product-sub {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+      line-height: 1.4;
+    }
+    .product-price {
+      font-size: 16px;
+      font-weight: 700;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* RECORDING HELPER DRAWER (For Unnat's ease during recording) */
+    .recorder-helper {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 999;
+      background: #FFFFFF;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-lg);
+      border-radius: var(--radius);
+      width: 340px;
+      max-height: calc(100vh - 40px);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .recorder-helper.collapsed {
+      transform: translateX(-360px);
+    }
+    .helper-toggle-tab {
+      position: absolute;
+      top: 16px;
+      right: -42px;
+      background: var(--text-dark);
+      color: #FFF;
+      border: none;
+      width: 42px;
+      height: 42px;
+      border-radius: 0 8px 8px 0;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-md);
+      font-size: 18px;
+    }
+    .helper-header {
+      padding: 16px;
+      background: #F8F6F2;
+      border-bottom: 1px solid var(--border-color);
+      border-radius: var(--radius) var(--radius) 0 0;
+    }
+    .helper-header h4 {
+      font-size: 14px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .helper-header p {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+    .helper-body {
+      padding: 12px 16px;
+      overflow-y: auto;
+      flex: 1;
+    }
+    .helper-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .test-q-item {
+      background: #FAF8F5;
+      border: 1px solid var(--border-color);
+      padding: 8px 10px;
+      border-radius: 8px;
+      font-size: 12px;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.15s;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .test-q-item:hover {
+      background: var(--accent-glow-light);
+      border-color: var(--accent-glow);
+    }
+    .test-q-item.completed {
+      opacity: 0.6;
+      background: #E8F5E9;
+      border-color: #A5D6A7;
+    }
+    .q-num {
+      background: var(--text-dark);
+      color: #FFF;
+      font-size: 10px;
+      font-weight: 700;
+      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .q-text {
+      flex: 1;
+      font-weight: 500;
+    }
+
+    /* CHATBOT WIDGET */
+    .chatbot-trigger {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--text-dark);
+      color: #FFFFFF;
+      width: 62px;
+      height: 62px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-lg);
+      cursor: pointer;
+      border: none;
+      z-index: 1000;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .chatbot-trigger:hover {
+      transform: scale(1.08);
+      background: var(--accent-glow);
+    }
+    .chatbot-trigger .badge {
+      position: absolute;
+      top: -2px;
+      right: -2px;
+      background: #10B981;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 2px solid #FFFFFF;
+    }
+
+    .chatbot-panel {
+      position: fixed;
+      bottom: 96px;
+      right: 24px;
+      width: 410px;
+      height: 620px;
+      max-width: calc(100vw - 32px);
+      max-height: calc(100vh - 120px);
+      background: #FFFFFF;
+      border-radius: 20px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.18);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      z-index: 1000;
+      border: 1px solid var(--border-color);
+      animation: popIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes popIn {
+      0% { opacity: 0; transform: translateY(20px) scale(0.95); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* Chatbot Header */
+    .chat-header {
+      background: #1E1A17;
+      color: #FFFFFF;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .chat-header-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .chat-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--accent-glow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 16px;
+      color: #FFFFFF;
+      position: relative;
+    }
+    .chat-avatar .online-dot {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 10px;
+      height: 10px;
+      background: #10B981;
+      border: 2px solid #1E1A17;
+      border-radius: 50%;
+    }
+    .chat-title-group h3 {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+    .chat-title-group p {
+      font-size: 11px;
+      color: #A39B94;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .btn-close-chat {
+      background: transparent;
+      border: none;
+      color: #A39B94;
+      font-size: 20px;
+      cursor: pointer;
+      line-height: 1;
+      padding: 4px;
+    }
+    .btn-close-chat:hover {
+      color: #FFFFFF;
+    }
+
+    /* Chat Messages Box */
+    .chat-messages {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+      background: #FAF7F2;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .msg-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      max-width: 86%;
+    }
+    .msg-group.bot {
+      align-self: flex-start;
+    }
+    .msg-group.user {
+      align-self: flex-end;
+    }
+    .msg-bubble {
+      padding: 12px 16px;
+      border-radius: 16px;
+      font-size: 13.5px;
+      line-height: 1.45;
+    }
+    .msg-bubble.bot {
+      background: #FFFFFF;
+      color: var(--text-dark);
+      border: 1px solid var(--border-color);
+      border-top-left-radius: 4px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+    }
+    .msg-bubble.user {
+      background: var(--text-dark);
+      color: #FFFFFF;
+      border-top-right-radius: 4px;
+    }
+    .msg-time {
+      font-size: 10px;
+      color: #A39B94;
+      margin-top: 2px;
+      align-self: flex-start;
+    }
+    .msg-group.user .msg-time {
+      align-self: flex-end;
+    }
+
+    /* Handover Form Card */
+    .handover-card {
+      background: #FFFFFF;
+      border: 1.5px solid var(--accent-glow);
+      border-radius: 12px;
+      padding: 14px;
+      margin-top: 8px;
+      box-shadow: var(--shadow-sm);
+    }
+    .handover-title {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--accent-glow);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .handover-form input {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      font-size: 12px;
+      margin-bottom: 8px;
+      font-family: inherit;
+    }
+    .handover-form input:focus {
+      outline: none;
+      border-color: var(--accent-glow);
+    }
+    .handover-submit {
+      width: 100%;
+      background: var(--accent-glow);
+      color: #FFF;
+      border: none;
+      padding: 8px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 12px;
+      cursor: pointer;
+    }
+    .handover-submit:hover {
+      background: #C8654B;
+    }
+
+    /* Typing Indicator */
+    .typing-indicator {
+      display: none;
+      align-self: flex-start;
+      background: #FFFFFF;
+      padding: 10px 16px;
+      border-radius: 16px;
+      border-top-left-radius: 4px;
+      border: 1px solid var(--border-color);
+      width: fit-content;
+    }
+    .typing-dots {
+      display: flex;
+      gap: 4px;
+    }
+    .typing-dot {
+      width: 6px;
+      height: 6px;
+      background: #A39B94;
+      border-radius: 50%;
+      animation: bounce 1.2s infinite;
+    }
+    .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes bounce {
+      0%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-5px); }
+    }
+
+    /* Chat Input Area */
+    .chat-input-area {
+      padding: 14px 16px;
+      background: #FFFFFF;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .chat-input {
+      flex: 1;
+      padding: 10px 14px;
+      border: 1px solid var(--border-color);
+      border-radius: 24px;
+      font-size: 13.5px;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .chat-input:focus {
+      border-color: var(--text-dark);
+    }
+    .btn-send {
+      background: var(--text-dark);
+      color: #FFFFFF;
+      border: none;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s;
+      flex-shrink: 0;
+    }
+    .btn-send:hover {
+      background: var(--accent-glow);
+    }
+
+    /* Quick suggestions bar */
+    .quick-chips {
+      padding: 8px 16px 0;
+      background: #FAF7F2;
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .quick-chips::-webkit-scrollbar {
+      display: none;
+    }
+    .quick-chip {
+      background: #FFFFFF;
+      border: 1px solid var(--border-color);
+      font-size: 11px;
+      font-weight: 500;
+      padding: 5px 10px;
+      border-radius: 14px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s;
+    }
+    .quick-chip:hover {
+      background: var(--text-dark);
+      color: #FFFFFF;
+      border-color: var(--text-dark);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Announcement -->
+  <div class="top-banner">
+    Skip the 10-step routine. Built for Indian skin & heat. <span>Launching Soon</span> — 800+ on waitlist.
+  </div>
+
+  <!-- Navigation -->
+  <nav>
+    <div style="display: flex; align-items: center;">
+      <a href="#" class="brand-logo">SKIPD</a>
+      <span class="brand-tag">Skipcare™</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#">The Philosophy</a></li>
+      <li><a href="#">Glowscreen SPF 50+</a></li>
+      <li><a href="#">Moonscreen Balm</a></li>
+      <li><a href="#">Focus Group Results</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="#waitlist" class="btn-waitlist">Join Waitlist</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-left">
+      <div class="hero-badge">
+        <span class="dot"></span>
+        Tested across 8 Indian cities with 50+ focus testers
+      </div>
+      <h1>Fewer steps.<br>Smarter skincare.<br><em>Just one swipe.</em></h1>
+      <p>
+        Most people are sold a 7 to 10 step routine they never finish. SKIPD consolidates toner, serum, moisturiser, and SPF into clean, solid sticks formulated for metro life.
+      </p>
+      <div class="stats-row">
+        <div class="stat-item">
+          <h3>4-in-1</h3>
+          <p>Multi-step formula</p>
+        </div>
+        <div class="stat-item">
+          <h3>100%</h3>
+          <p>Cabin & gym friendly</p>
+        </div>
+        <div class="stat-item">
+          <h3>₹1,500</h3>
+          <p>Flat transparent pricing</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product Showcase -->
+    <div class="hero-products">
+      <!-- Glowscreen -->
+      <div class="product-preview-card">
+        <div class="product-stick-visual">
+          <div class="stick-graphic">AM</div>
+        </div>
+        <span class="product-tag">Morning Glow Stick</span>
+        <h2 class="product-title">Glowscreen SPF 50+</h2>
+        <p class="product-sub">Toner + Serum + Moisturiser + Sunscreen. Non-greasy glow that holds in Indian heat.</p>
+        <div class="product-price">
+          <span>₹1,500</span>
+          <span style="font-size: 11px; color: #10B981; font-weight: 600;">Waitlist Open</span>
+        </div>
+      </div>
+
+      <!-- Moonscreen -->
+      <div class="product-preview-card">
+        <div class="product-stick-visual night">
+          <div class="stick-graphic night">PM</div>
+        </div>
+        <span class="product-tag night">Overnight Recovery</span>
+        <h2 class="product-title">Moonscreen Balm</h2>
+        <p class="product-sub">Barrier Repair + Eye Cream + Anti-Ageing. Deep recovery while you sleep.</p>
+        <div class="product-price">
+          <span>₹1,500</span>
+          <span style="font-size: 11px; color: #10B981; font-weight: 600;">Waitlist Open</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RECORDING HELPER DRAWER (Visible for easy 1-click test flow during screen recording) -->
+  <div class="recorder-helper" id="recorderHelper">
+    <button class="helper-toggle-tab" onclick="toggleHelper()" title="Toggle Helper Panel">
+      📋
+    </button>
+    <div class="helper-header">
+      <h4>
+        <span>10 Test Questions</span>
+        <span style="font-size: 11px; color: var(--accent-glow); font-weight: 700;" id="qCounter">0/10 Tested</span>
+      </h4>
+      <p>Click any question below to test live in the chat widget for your video recording!</p>
+    </div>
+    <div class="helper-body">
+      <div class="helper-list">
+        <button class="test-q-item" onclick="triggerTestQ(1, 'Where is my order?')">
+          <span class="q-num">1</span>
+          <span class="q-text">"Where is my order?"</span>
+        </button>
+        <button class="test-q-item" onclick="triggerTestQ(2, 'How do I use Glowscreen? Do I still need moisturiser?')">
+          <span class="q-num">2</span>
+          <span class="q-text">"How do I use Glowscreen? Do I still need moisturiser?"</span>
+        </button>
+        <button class="test-q-item" onclick="triggerTestQ(3, 'I have oily skin and travel a lot. Which one should I buy?')">
+          <span class="q-num">3</span>
+          <span class="q-text">"I have oily skin and travel a lot. Which one should I buy?"</span>
+        </button>
+        <button class="test-q-item" onclick="triggerTestQ(4, 'Can I use Moonscreen with my retinol serum?')">
+          <span class="q-num">4</span>
+          <span class="q-text">"Can I use Moonscreen with my retinol serum?"</span>
+        </button>
+        <button class="test-q-item" onclick="triggerTestQ(5, 'Is Glowscreen safe during pregnancy?')">
+          <span class="q-num">5</span>
+          <span class="q-text">"Is Glowscreen safe during pregnancy?" <small style="color:#D96B43;">(Handover)</small></span>
+        </button>
+        <button class="test-q-item" onclick="triggerTestQ(6, 'I used Moonscreen and got a rash.')">
+          <span class="q-num">6</span>
+          <span class="q-text">"I used Moonscreen and got a rash." <small style="color:#D96B43;">(Escalation)</small></span>
+        </button>
+        <button class="test-q-item" onclick="triggerTestQ(7, 'Will this make me fairer?')">
+          <span class="q-num">7</span>
+          <span class="q-text">"Will this make me fairer?" <small style="color:#10B981;">(Voice rule)</small></span>
+        </button>
+        <button class="test-q-item" onclick="triggerTestQ(8, 'Is it clinically proven?')">
+          <span class="q-num">8</span>
+          <span class="q-text">"Is it clinically proven?"</span>
+        </button>
+        <button class="test-q-item" onclick="triggerTestQ(9, 'Give me a discount code.')">
+          <span class="q-num">9</span>
+          <span class="q-text">"Give me a discount code." <small style="color:#6E6760;">(Policy)</small></span>
+        </button>
+        <button class="test-q-item" onclick="triggerTestQ(10, 'Yeh stick sweat-proof hai kya?')">
+          <span class="q-num">10</span>
+          <span class="q-text">"Yeh stick sweat-proof hai kya?" <small style="color:#7C3AED;">(Hinglish)</small></span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHAT WIDGET TRIGGER -->
+  <button class="chatbot-trigger" id="chatTrigger" onclick="toggleChat()" title="Chat with SKIPD Support">
+    <span class="badge"></span>
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+    </svg>
+  </button>
+
+  <!-- CHATBOT INTERFACE PANEL -->
+  <div class="chatbot-panel" id="chatPanel">
+    <!-- Header -->
+    <div class="chat-header">
+      <div class="chat-header-info">
+        <div class="chat-avatar">
+          S
+          <div class="online-dot"></div>
+        </div>
+        <div class="chat-title-group">
+          <h3>SKIPD Assistant</h3>
+          <p>
+            <span>●</span> Skipcare™ AI Agent · Always on
+          </p>
+        </div>
+      </div>
+      <button class="btn-close-chat" onclick="toggleChat()" title="Minimize Chat">✕</button>
+    </div>
+
+    <!-- Quick Chips -->
+    <div class="quick-chips">
+      <div class="quick-chip" onclick="triggerTestQ(1, 'Where is my order?')">Track order 📦</div>
+      <div class="quick-chip" onclick="triggerTestQ(2, 'How do I use Glowscreen?')">How to use 🧴</div>
+      <div class="quick-chip" onclick="triggerTestQ(3, 'Which stick suits oily skin?')">Skin finder ✨</div>
+      <div class="quick-chip" onclick="triggerTestQ(10, 'Yeh stick sweat-proof hai kya?')">Hinglish demo 🇮🇳</div>
+    </div>
+
+    <!-- Messages Container -->
+    <div class="chat-messages" id="chatMessages">
+      <!-- Welcome Message -->
+      <div class="msg-group bot">
+        <div class="msg-bubble bot">
+          Hey there! 👋 I'm the SKIPD assistant. Whether you're building a simpler morning routine, checking an order, or wondering which stick suits your skin, I'm here to help. What's on your mind?
+        </div>
+        <span class="msg-time">Just now</span>
+      </div>
+    </div>
+
+    <!-- Typing Indicator -->
+    <div class="typing-indicator" id="typingIndicator">
+      <div class="typing-dots">
+        <div class="typing-dot"></div>
+        <div class="typing-dot"></div>
+        <div class="typing-dot"></div>
+      </div>
+    </div>
+
+    <!-- Input Box -->
+    <form class="chat-input-area" id="chatForm" onsubmit="handleUserSubmit(event)">
+      <input type="text" class="chat-input" id="chatInput" placeholder="Ask about Glowscreen, shipping, skin routine..." autocomplete="off">
+      <button type="submit" class="btn-send" title="Send Message">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="22" y1="2" x2="11" y2="13"></line>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+        </svg>
+      </button>
+    </form>
+  </div>
+
+  <script>
+    // Knowledge Base & Guardrail Answers adhering strictly to SKIPD's voice traits:
+    // (Direct, Informed, Inclusive, Warm, No Clinical jargon, No fake claims)
+    const answersMap = {
+      1: {
+        text: "Once your order ships, you will receive an email and SMS with your live tracking link. We typically deliver within [3-5 business days] across metro cities in India. If you already placed an order, share your order number and I can look it up right away!",
+        handover: false
+      },
+      2: {
+        text: "Swipe Glowscreen directly across your face as the final step of your morning routine—no messy rubbing required unless you prefer to. And nope! You don't need a separate moisturiser. Glowscreen is a 4-in-1: it hydrates, protects, and replaces your toner, serum, moisturiser, and SPF 50+ in one clean swipe.",
+        handover: false
+      },
+      3: {
+        text: "For oily skin on the go, Glowscreen is your best morning pick—it gives a healthy, non-greasy glow that holds up in Indian heat without feeling heavy. If you're flying often, both Glowscreen and Moonscreen are solid sticks, meaning zero cabin liquid restrictions and no leaky bottles in your carry-on luggage!",
+        handover: false
+      },
+      4: {
+        text: "Yes, absolutely! Moonscreen is formulated specifically for barrier repair, deep hydration, and overnight recovery. It makes an ideal follow-up to retinol or active serums to soothe skin and lock in moisture while you sleep.",
+        handover: false
+      },
+      5: {
+        text: "While our formulation is clean and dermatologist-tested, we always advise consulting your healthcare provider before introducing any new skincare product during pregnancy. Let's make sure you get the exact details:",
+        handover: true,
+        handoverTitle: "Doctor's Ingredient List & Team Escalation",
+        handoverPrompt: "Leave your name, email, and order/query details below and our founders will personally email you our full verified ingredient breakdown for your doctor."
+      },
+      6: {
+        text: "I'm so sorry to hear that. Please pause using the stick immediately. Your skin safety is our absolute priority. Let me connect you directly with Janhavi & Sandali (our founders) right away:",
+        handover: true,
+        handoverTitle: "Immediate Medical Escalation & Support",
+        handoverPrompt: "Please drop your details below so our founding team can reach out to you directly and initiate a full review/resolution."
+      },
+      7: {
+        text: "No, it will not. We don't believe in skin lightening or fairness promises. Our sticks are formulated strictly for skin health, barrier repair, deep hydration, and high-performance SPF 50+ protection for every Indian skin tone.",
+        handover: false
+      },
+      8: {
+        text: "Yes. Before launching, we conducted in-depth user testing with 150+ people across 8 Indian cities and focus-group trials with 50+ testers alongside dermatologists. We specifically reformulated our solid sticks so they don't melt, break down, or leave a white cast in intense Indian humidity and heat.",
+        handover: false
+      },
+      9: {
+        text: "We price our 4-in-1 sticks at a flat ₹1,500 with zero artificial markups, replacing 4 individual skincare bottles in one stick. Because of this, we don't offer generic discount codes. However, if you join our 800+ waitlist today, you'll receive exclusive launch day access!",
+        handover: false
+      },
+      10: {
+        text: "Haan bilkul! Glowscreen ko Indian humidity aur heat ko dhyan mein rakh kar formulate kiya gaya hai. Chahe aap gym mein ho, Pilates class mein, ya metro commute kar rahe ho, yeh stick sweat-proof hai aur chipchipahat ke bina stay karegi.",
+        handover: false
+      }
+    };
+
+    let testedCount = 0;
+    const completedSet = new Set();
+
+    function toggleHelper() {
+      const helper = document.getElementById('recorderHelper');
+      helper.classList.toggle('collapsed');
+    }
+
+    function toggleChat() {
+      const panel = document.getElementById('chatPanel');
+      if (panel.style.display === 'none') {
+        panel.style.display = 'flex';
+      } else {
+        panel.style.display = 'none';
+      }
+    }
+
+    function triggerTestQ(qIndex, text) {
+      // Ensure chat is open
+      const panel = document.getElementById('chatPanel');
+      panel.style.display = 'flex';
+
+      // Mark button as completed in helper
+      const buttons = document.querySelectorAll('.test-q-item');
+      if (buttons[qIndex - 1]) {
+        buttons[qIndex - 1].classList.add('completed');
+      }
+      if (!completedSet.has(qIndex)) {
+        completedSet.add(qIndex);
+        testedCount++;
+        document.getElementById('qCounter').innerText = `${testedCount}/10 Tested`;
+      }
+
+      // Add user message
+      addUserMessage(text);
+
+      // Simulate bot typing
+      showTyping(true);
+
+      setTimeout(() => {
+        showTyping(false);
+        const data = answersMap[qIndex];
+        addBotMessage(data.text, data.handover, data.handoverTitle, data.handoverPrompt);
+      }, 700);
+    }
+
+    function handleUserSubmit(e) {
+      e.preventDefault();
+      const input = document.getElementById('chatInput');
+      const val = input.value.trim();
+      if (!val) return;
+
+      addUserMessage(val);
+      input.value = '';
+
+      showTyping(true);
+
+      setTimeout(() => {
+        showTyping(false);
+        // Smart matching
+        const lower = val.toLowerCase();
+        let matchedIndex = null;
+
+        if (lower.includes('order') || lower.includes('track') || lower.includes('kahan hai') || lower.includes('where is')) matchedIndex = 1;
+        else if (lower.includes('moisturiser') || lower.includes('moisturizer') || lower.includes('how do i use glowscreen')) matchedIndex = 2;
+        else if (lower.includes('oily') || lower.includes('travel') || lower.includes('which one')) matchedIndex = 3;
+        else if (lower.includes('retinol')) matchedIndex = 4;
+        else if (lower.includes('pregnant') || lower.includes('pregnancy')) matchedIndex = 5;
+        else if (lower.includes('rash') || lower.includes('reaction') || lower.includes('allergy')) matchedIndex = 6;
+        else if (lower.includes('fair') || lower.includes('lighten') || lower.includes('whitening')) matchedIndex = 7;
+        else if (lower.includes('clinical') || lower.includes('tested') || lower.includes('proven')) matchedIndex = 8;
+        else if (lower.includes('discount') || lower.includes('coupon') || lower.includes('code') || lower.includes('offer')) matchedIndex = 9;
+        else if (lower.includes('sweat') || lower.includes('pighal') || lower.includes('waterproof')) matchedIndex = 10;
+
+        if (matchedIndex) {
+          const data = answersMap[matchedIndex];
+          addBotMessage(data.text, data.handover, data.handoverTitle, data.handoverPrompt);
+        } else {
+          addBotMessage("I want to make sure you get the most accurate advice on this. SKIPD sticks replace your multi-step clutter into simple 1-swipe morning and night routines. Could you tell me a bit more about your skin type or concern?");
+        }
+      }, 700);
+    }
+
+    function addUserMessage(text) {
+      const container = document.getElementById('chatMessages');
+      const group = document.createElement('div');
+      group.className = 'msg-group user';
+      group.innerHTML = `
+        <div class="msg-bubble user">${escapeHtml(text)}</div>
+        <span class="msg-time">${getTime()}</span>
+      `;
+      container.appendChild(group);
+      container.scrollTop = container.scrollHeight;
+    }
+
+    function addBotMessage(text, hasHandover, handoverTitle, handoverPrompt) {
+      const container = document.getElementById('chatMessages');
+      const group = document.createElement('div');
+      group.className = 'msg-group bot';
+
+      let inner = `<div class="msg-bubble bot">${escapeHtml(text)}`;
+
+      if (hasHandover) {
+        inner += `
+          <div class="handover-card">
+            <div class="handover-title">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              ${escapeHtml(handoverTitle || "Human Support Escalation")}
+            </div>
+            <p style="font-size: 11px; color: #6E6760; margin-bottom: 8px;">${escapeHtml(handoverPrompt || "Please fill in your details:")}</p>
+            <div class="handover-form">
+              <input type="text" placeholder="Full Name (e.g., Unnati)" id="hoName" />
+              <input type="email" placeholder="Email Address (e.g., unnati@example.com)" id="hoEmail" />
+              <input type="text" placeholder="Order ID or Phone Number" id="hoOrder" />
+              <button type="button" class="handover-submit" onclick="submitHandover(this)">Send to Founders Janhavi & Sandali</button>
+            </div>
+          </div>
+        `;
+      }
+
+      inner += `</div><span class="msg-time">${getTime()}</span>`;
+      group.innerHTML = inner;
+      container.appendChild(group);
+      container.scrollTop = container.scrollHeight;
+    }
+
+    function submitHandover(btn) {
+      const form = btn.parentElement;
+      const name = form.querySelector('#hoName').value || "Customer";
+      form.innerHTML = `
+        <div style="background: #E8F5E9; color: #2E7D32; padding: 10px; border-radius: 6px; font-size: 11.5px; font-weight: 600;">
+          ✓ Escalation logged! Alert sent to team Slack & founders (Janhavi & Sandali). We will reach out to you within 2 hours.
+        </div>
+      `;
+    }
+
+    function showTyping(show) {
+      const ind = document.getElementById('typingIndicator');
+      ind.style.display = show ? 'block' : 'none';
+      if (show) {
+        const container = document.getElementById('chatMessages');
+        container.scrollTop = container.scrollHeight;
+      }
+    }
+
+    function getTime() {
+      const now = new Date();
+      return now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    }
+
+    function escapeHtml(str) {
+      return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+  </script>
+</body>
+</html>
