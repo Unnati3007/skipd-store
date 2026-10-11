@@ -781,6 +781,11 @@
         <span style="font-size: 11px; color: var(--accent-glow); font-weight: 700;" id="qCounter">0/10 Tested</span>
       </h4>
       <p>Click any question below to test live in the chat widget for your video recording!</p>
+      <button id="btnRecordToggle" onclick="toggleScreenRecording()" style="background: #E07A5F; color: #FFF; border: none; padding: 10px; border-radius: 8px; font-weight: 700; font-size: 12.5px; cursor: pointer; width: 100%; margin-top: 10px; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 4px 12px rgba(224, 122, 95, 0.25);">
+        <span id="recDot" style="width: 10px; height: 10px; border-radius: 50%; background: #FFF;"></span>
+        <span id="recLabel">⏺ 1-Click Record Screen & Mic</span>
+      </button>
+      <div id="recStatus" style="font-size: 11px; color: #DC2626; margin-top: 6px; display: none; text-align: center; font-weight: 700;">🔴 Recording in progress... (Click button to Stop & Download)</div>
     </div>
     <div class="helper-body">
       <div class="helper-list">
@@ -1097,6 +1102,111 @@
 
     function escapeHtml(str) {
       return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+
+    // Built-in 1-Click Screen & Mic Recorder
+    let mediaRecorder = null;
+    let recordedChunks = [];
+    let isRecording = false;
+
+    async function toggleScreenRecording() {
+      if (isRecording) {
+        stopScreenRecording();
+      } else {
+        await startScreenRecording();
+      }
+    }
+
+    async function startScreenRecording() {
+      try {
+        const screenStream = await navigator.mediaDevices.getDisplayMedia({
+          video: { cursor: "always" },
+          audio: true
+        });
+
+        let micStream = null;
+        try {
+          micStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        } catch(e) {
+          console.warn("Microphone access not granted or unavailable:", e);
+        }
+
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const dest = audioCtx.createMediaStreamDestination();
+
+        if (screenStream.getAudioTracks().length > 0) {
+          const srcScreen = audioCtx.createMediaStreamSource(screenStream);
+          srcScreen.connect(dest);
+        }
+        if (micStream && micStream.getAudioTracks().length > 0) {
+          const srcMic = audioCtx.createMediaStreamSource(micStream);
+          srcMic.connect(dest);
+        }
+
+        const tracks = [...screenStream.getVideoTracks()];
+        if (dest.stream.getAudioTracks().length > 0) {
+          tracks.push(dest.stream.getAudioTracks()[0]);
+        } else if (micStream && micStream.getAudioTracks().length > 0) {
+          tracks.push(micStream.getAudioTracks()[0]);
+        }
+
+        const combinedStream = new MediaStream(tracks);
+        recordedChunks = [];
+        
+        let mime = 'video/webm';
+        if (MediaRecorder.isTypeSupported('video/webm;codecs=vp9,opus')) mime = 'video/webm;codecs=vp9,opus';
+        else if (MediaRecorder.isTypeSupported('video/webm;codecs=vp8,opus')) mime = 'video/webm;codecs=vp8,opus';
+        else if (MediaRecorder.isTypeSupported('video/mp4')) mime = 'video/mp4';
+
+        mediaRecorder = new MediaRecorder(combinedStream, { mimeType: mime });
+
+        mediaRecorder.ondataavailable = (event) => {
+          if (event.data && event.data.size > 0) {
+            recordedChunks.push(event.data);
+          }
+        };
+
+        mediaRecorder.onstop = () => {
+          const blob = new Blob(recordedChunks, { type: mime });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          const ext = mime.includes('mp4') ? 'mp4' : 'webm';
+          a.download = `Unnati_SKIPD_Bot_Walkthrough.${ext}`;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          setTimeout(() => URL.revokeObjectURL(url), 1000);
+
+          screenStream.getTracks().forEach(t => t.stop());
+          if (micStream) micStream.getTracks().forEach(t => t.stop());
+
+          isRecording = false;
+          document.getElementById('recLabel').innerText = '⏺ 1-Click Record Screen & Mic';
+          document.getElementById('btnRecordToggle').style.background = '#E07A5F';
+          document.getElementById('recStatus').style.display = 'none';
+        };
+
+        screenStream.getVideoTracks()[0].onended = () => {
+          if (isRecording) stopScreenRecording();
+        };
+
+        mediaRecorder.start(1000);
+        isRecording = true;
+        document.getElementById('recLabel').innerText = '⏹ Stop & Download Video';
+        document.getElementById('btnRecordToggle').style.background = '#DC2626';
+        document.getElementById('recStatus').style.display = 'block';
+
+      } catch(err) {
+        console.error(err);
+        alert('Recording cancelled or permission denied: ' + err.message);
+      }
+    }
+
+    function stopScreenRecording() {
+      if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+        mediaRecorder.stop();
+      }
     }
   </script>
 </body>
